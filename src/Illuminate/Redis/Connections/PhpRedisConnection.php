@@ -432,7 +432,7 @@ class PhpRedisConnection extends Connection implements ConnectionContract
         try {
             return parent::command($method, $parameters);
         } catch (RedisException $e) {
-            if (Str::contains($e->getMessage(), 'went away')) {
+            if (Str::contains($e->getMessage(), ['went away', 'NOAUTH'])) {
                 $this->client = $this->connector ? call_user_func($this->connector) : $this->client;
             }
 
